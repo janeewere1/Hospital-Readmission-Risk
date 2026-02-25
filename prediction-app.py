@@ -81,7 +81,7 @@ if st.sidebar.button("Generate Prediction"):
     # this is for using LLM to explain
     if st.checkbox("Generate AI Clinical Explanation using LLM"):
 
-        openai.api_key = os.getenv("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")
+        openai.api_key = os.getenv("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")
 
         feature_summary = "\n".join(
             [f"- {row.Feature} (impact: {row.Impact:.3f})"
@@ -118,6 +118,7 @@ if st.sidebar.button("Generate Prediction"):
 
         except:
             st.error("LLM explanation could not be generated. Check API key.")
+
 
 
 
