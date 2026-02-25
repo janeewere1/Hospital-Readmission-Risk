@@ -51,7 +51,7 @@ if st.sidebar.button("Generate Prediction"):
     predicted_label = label_map[prediction]
 
     # this is the Risk Badge
-    col1, col2 = st.colums(2)
+    col1, col2 = st.columns(2)
     with col1:
         st.subheader("Prediction Outcome")
         st.metric("Predicted Class", predicted_label)
@@ -118,6 +118,7 @@ if st.sidebar.button("Generate Prediction"):
 
         except:
             st.error("LLM explanation could not be generated. Check API key.")
+
 
 
 
