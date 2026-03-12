@@ -27,13 +27,50 @@ explainer = shap.TreeExplainer(model)
 
 # this is for the sidebar input panel
 st.sidebar.header("Input Patient Information")
-input_data = {}
 
-for feature in feature_columns:
-    input_data[feature] = st.sidebar.number_input(
-        f"{feature}",
-        value=0.0
-    )
+age = st.sidebar.slider("Age", 18, 50, 100)
+
+time_in_hospital = st.sidebar.slider(
+    "Length of Hospital Stay (days)", 1, 3, 14
+)
+
+number_lab_procedures = st.sidebar.slider(
+    "Number of Lab Procedures", 0, 40, 150
+)
+
+number_medications = st.sidebar.slider(
+    "Number of Medications", 0, 10, 50
+)
+
+number_inpatient = st.sidebar.slider(
+    "Previous Inpatient Visits", 0, 0, 20
+)
+
+number_emergency = st.sidebar.slider(
+    "Previous Emergency Visits", 0, 0, 20
+)
+
+number_outpatient = st.sidebar.slider(
+    "Previous Outpatient Visits", 0, 0, 20
+)
+
+number_diagnoses = st.sidebar.slider(
+    "Number of Diagnoses", 1, 3, 10
+)
+# this creates a full feature dictionary with defaults
+input_data = {feature: 0 for feature in feature_columns}
+
+# this replaces the important features with the user input
+input_data.update({
+    "age": age,
+    "time_in_hospital": time_in_hospital,
+    "number_lab_procedures": number_lab_procedures,
+    "number_medications": number_medications,
+    "number_inpatient": number_inpatient,
+    "number_emergency": number_emergency,
+    "number_outpatient": number_outpatient,
+    "number_diagnoses": number_diagnoses
+})
 input_df = pd.DataFrame([input_data])
 
 # this is part generates a prediction
@@ -61,6 +98,7 @@ if st.sidebar.button("Generate Prediction"):
         st.write(f"No Readmission: {probability[0]:.2f}")
         st.write(f">30 Days: {probability[1]:.2f}")
         st.write(f"<30 Days: {probability[2]:.2f}")
+    st.divider()
 
     # this is for the SHAP Explanation
     shap_values = explainer.shap_values(input_df)
@@ -118,6 +156,7 @@ if st.sidebar.button("Generate Prediction"):
 
         except:
             st.error("LLM explanation could not be generated. Check API key.")
+
 
 
 
