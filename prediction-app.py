@@ -8,7 +8,7 @@ import openai
 
 
 # this configures the app page
-st.set_page_config(
+st.set_page_config( 
     page_title="Hospital Readmissiom Risk Calculator System",
     layout="wide"
 )
@@ -156,6 +156,7 @@ if st.sidebar.button("Generate Prediction"):
 
         except:
             st.error("LLM explanation could not be generated. Check API key.")
+
 
 
 
